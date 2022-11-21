@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TShockAPI;
 using Terraria;
 using TerrariaApi.Server;
