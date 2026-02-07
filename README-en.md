@@ -1,5 +1,7 @@
 ## Tp Utils
 
+> [中文说明](https://github.com/SgLy/TpUtils/blob/master/README.md)
+
 A plugin for [TShock](https://github.com/Pryaxis/TShock) to provide some extra tp commands.
 
 ### All available commands

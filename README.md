@@ -1,5 +1,7 @@
 ## Tp Utils
 
+> [README in English](https://github.com/SgLy/TpUtils/blob/master/README.md)
+
 提供一些额外传送命令的 [TShock](https://github.com/Pryaxis/TShock) 插件。
 
 ### 所有可用命令
