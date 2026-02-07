@@ -34,7 +34,7 @@ namespace TpUtils
       
         /// <summary>
         /// Initializes a new instance of the TpUtils class.
-        /// This is where you set the plugin's order and perfrom other constructor logic
+        /// This is where you set the plugin's order and perform other constructor logic
         /// </summary>
         public TpUtils(Main game) : base(game) {
             for (int i = 0; i < 256; ++i) {
@@ -107,10 +107,12 @@ namespace TpUtils
             float X = this.lastDeathX[playerId];
             float Y = this.lastDeathY[playerId];
             if (X < -1e5 || Y < -1e5) {
-                e.Player.SendErrorMessage("No recorded death position yet.");
+                // e.Player.SendErrorMessage("No recorded death position yet.");
+                e.Player.SendErrorMessage("还没有记录过死亡位置");
                 return;
             }
-            e.Player.SendSuccessMessage($"Teleported to {X}, {Y}");
+            // e.Player.SendSuccessMessage($"Teleported to: {X}, {Y}");
+            e.Player.SendSuccessMessage($"已传送到：{X}, {Y}");
             e.Player.Teleport(X, Y);
         }
 
@@ -118,7 +120,8 @@ namespace TpUtils
         {
             if (e.Parameters.Count != 1)
             {
-                e.Player.SendErrorMessage($"Invalid syntax, usage: {Commands.Specifier}add <name>");
+                // e.Player.SendErrorMessage($"Invalid syntax, usage: {Commands.Specifier}add <name>");
+                e.Player.SendErrorMessage($"输入格式错误，用法：{Commands.Specifier}add <name>");
                 return;
             }
             int id = this.labels.Count;
@@ -128,24 +131,28 @@ namespace TpUtils
                 X = e.Player.X,
                 Y = e.Player.Y,
             };
-            e.Player.SendSuccessMessage($"Labeled {FormatLabel(id, label)}");
+            // e.Player.SendSuccessMessage($"Labeled {FormatLabel(id, label)}");
+            e.Player.SendSuccessMessage($"已收藏：{FormatLabel(id, label)}");
             this.labels.Add(label);
         }
 
         void ListLabel(CommandArgs e)
         {
-            e.Player.SendInfoMessage($"All labeled position:");
+            // e.Player.SendInfoMessage($"All labeled positions:");
+            e.Player.SendInfoMessage($"所有已标记的位置：");
             this.labels.ForEach((label, i) => {
                 e.Player.SendInfoMessage($"  {FormatLabel(i, label)}");
             });
-            e.Player.SendInfoMessage($"Total: {this.labels.Count} labels");
+            // e.Player.SendInfoMessage($"Total: {this.labels.Count} labels");
+            e.Player.SendInfoMessage($"共计：{this.labels.Count} 个标记");
         }
 
         void RemoveLabel(CommandArgs e)
         {
             if (e.Parameters.Count != 1)
             {
-                e.Player.SendErrorMessage($"Invalid syntax, usage: {Commands.Specifier}rm <id>");
+                // e.Player.SendErrorMessage($"Invalid syntax, usage: {Commands.Specifier}rm <id>");
+                e.Player.SendErrorMessage($"输入格式错误，用法：{Commands.Specifier}rm <id>");
                 return;
             }
             int id = 0;
@@ -154,24 +161,28 @@ namespace TpUtils
             }
             catch (FormatException)
             {
-                e.Player.SendErrorMessage($"{e.Parameters[0]} is not a valid id, id should be an int");
+                // e.Player.SendErrorMessage($"{e.Parameters[0]} is not a valid id, id should be an int");
+                e.Player.SendErrorMessage($"{e.Parameters[0]} 不是有效的编号，编号应为整数");
                 return;
             }
             var count = this.labels.Count;
             if (id < 0 || id >= count)
             {
-                e.Player.SendErrorMessage($"{id} is not a valid id, id should between 0-{count - 1}");
+                // e.Player.SendErrorMessage($"{id} is not a valid id, id should be between 0-{count - 1}");
+                e.Player.SendErrorMessage($"{id} 不是有效的编号，编号应在 0-{count - 1} 之间");
                 return;
             }
             var label = this.labels.Remove(id);
-            e.Player.SendSuccessMessage($"Removed {FormatLabel(id, label)}");
+            // e.Player.SendSuccessMessage($"Removed {FormatLabel(id, label)}");
+            e.Player.SendSuccessMessage($"已移除：{FormatLabel(id, label)}");
         }
 
         void TpLabel(CommandArgs e)
         {
             if (e.Parameters.Count != 1)
             {
-                e.Player.SendErrorMessage($"Invalid syntax, usage: {Commands.Specifier}tpl <id>");
+                // e.Player.SendErrorMessage($"Invalid syntax, usage: {Commands.Specifier}tpl <id>");
+                e.Player.SendErrorMessage($"输入格式错误，用法：{Commands.Specifier}tpl <id>");
                 return;
             }
             int id = 0;
@@ -180,18 +191,21 @@ namespace TpUtils
             }
             catch (FormatException)
             {
-                e.Player.SendErrorMessage($"{e.Parameters[0]} is not a valid id, id should be an int");
+                // e.Player.SendErrorMessage($"{e.Parameters[0]} is not a valid id, id should be an int");
+                e.Player.SendErrorMessage($"{e.Parameters[0]} 不是有效的编号，编号应为整数");
                 return;
             }
             var count = this.labels.Count;
             if (id < 0 || id >= count)
             {
-                e.Player.SendErrorMessage($"{id} is not a valid id, id should between 0-{count - 1}");
+                // e.Player.SendErrorMessage($"{id} is not a valid id, id should be between 0-{count - 1}");
+                e.Player.SendErrorMessage($"{id} 不是有效的编号，编号应在 0-{count - 1} 之间");
                 return;
             }
             var label = this.labels[id];
             e.Player.Teleport(label.X, label.Y);
-            e.Player.SendSuccessMessage($"Teleported to {FormatLabel(id, label)}");
+            // e.Player.SendSuccessMessage($"Teleported to: {FormatLabel(id, label)}");
+            e.Player.SendSuccessMessage($"已传送到：{FormatLabel(id, label)}");
         }
 
         /// <summary>
